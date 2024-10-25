@@ -156,12 +156,12 @@ sequenceDiagram
             B ->> C: audit(cui,end_by_suspension_requested)
             C -->> B: ack
         else concluso tempo istanza o tutti gli enti terzi hanno inoltrato conclusione, nessuna richiesta sospesione,almeno una richiesta conformazione
-            B ->> F: notify(cui, instance_descriptor_version, resource_id)
+            B ->> F: notify(cui, instance_descriptor_version, end_by_conformation_requested)
             F -->> B: ack
             opt
             loop recupero documenti di richiesta conformazione degli ET
                 F ->> B: request_instance_document(cui, resource_id)
-                note right of F: resource_id in integration_document_list #cambiare il nome di integration_document_list con uno generico
+                note right of F: resource_id in TransferOutcomeNotifyMessage con event=end_by_conformation_requested
                 B -->> F: instanceDocument    
                 end
             end 
@@ -209,18 +209,30 @@ sequenceDiagram
                         E ->> C: audit(cui, instance_conformated_retrived)
                         C -->> E: ack
                         alt
-                            E ->> B: notify(cui, instance_descriptor_version, negative_conformation)
+                            E ->> B: send_conclusions(ConformationOutcome)
+                            note left of E: outcome_type = negative_conformation
                             B -->> E: ack
                             E ->> C: audit(cui, negative_conformation_from_<ET>)
                             C -->> E: ack
                         else
-                            E ->> B: notify(cui, instance_descriptor_version, positive_conformation)
+                            E ->> B: send_conclusions(ConformationOutcome)
+                            note left of E: outcome_type = positive_conformation
                             B -->> E: ack
                             E ->> C: audit(cui, positive_conformation_from_<ET>)
                             C -->> E: ack
                         end
                     end
-                    alt tutti gli enti hanno inoltrato un esito positivo per la conformazione
+                    alt (tutti gli enti hanno inoltrato un esito positivo per la conformazione) O (c'è almeno un ET che non ha inviato l'esito nei tempi E non ci sono esiti negativi per la conformazione)
+                        
+                        opt
+                            loop per tutti gli enti che non hanno inviato gli esiti entro i tempi
+                                B ->> E: notify(cui, instance_descriptor_version,conformation_outcome_times_expired)
+                                E -->> B: ack
+                                B ->> C: audit(cui, conformation_outcome_times_expired_from_<ET>)
+                                C -->> B: ack
+                            end
+                        end
+                        
                         B ->> F: notify(cui, instance_descriptor_version,end_by_positive_conformation)
                         F -->> B: ack  
                         F -) P: notification(cui,end_by_positive_conformation)          
@@ -234,9 +246,9 @@ sequenceDiagram
                         B ->> F: notify(cui, instance_descriptor_version,end_by_negative_conformation)
                         F -->> B: ack
                         opt
-                            loop recupero documenti di richiesta integrazione degli ET
+                            loop recupero documenti di richiesta conformazione degli ET
                                 F ->> B: request_instance_document(cui, resource_id)
-                                note right of F: resource_id in integration_document_list
+                                note right of F: resource_id in TransferOutcomeNotifyMessage con event=end_by_negative_conformation
                                 B -->> F: instanceDocument    
                             end
                         end 
