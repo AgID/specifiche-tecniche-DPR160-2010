@@ -175,6 +175,7 @@ sequenceDiagram
                 alt concluso tempo di conformazione senza risposta dal presentatore
                     B ->> F: notify(cui, instance_descriptor_version,end_by_conformation_times_expired)
                     F -->> B: ack
+                    F -) P: notification(cui,end_by_conformation_times_expired)
                     par per ogni ente terzo interessato
                         B ->> E: notify(cui, instance_descriptor_version,end_by_conformation_times_expired)
                         E -->> B: ack

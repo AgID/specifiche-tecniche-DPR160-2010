@@ -461,8 +461,9 @@ components:
                     $ref: "#/components/schemas/cui"
                 instance_descriptor_version:
                     type: string
-                date:
+                expiration_date:
                     type: string
+                    description: "data di scadenza concessa al presentatore per inoltrare la documentazione relativa alla richiesta di conformazione"
                     format: date
                 conformation_requested:
                     type: string
@@ -533,9 +534,6 @@ components:
                     $ref: "#/components/schemas/cui"
                 instance_descriptor_version:
                     type: string
-                date:
-                    type: string
-                    format: date
                 conformation_outcome:
                     type: string
                     minLength: 1
