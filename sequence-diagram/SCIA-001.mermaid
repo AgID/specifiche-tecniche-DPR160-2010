@@ -166,8 +166,9 @@ sequenceDiagram
                 end
             end 
             F -) P: notification(cui,conformation_requested)
-            B ->> C: request_update_times(cui,times)
-            C -->> B: instanceDescriptor
+            B ->> C: audit(cui,conformation_requested)
+            C -->> B: ack
+
             par per ogni ente terzo interessato
                 B ->> E: notify(cui, instance_descriptor_version,conformation_requested)
                 E -->> B: ack
