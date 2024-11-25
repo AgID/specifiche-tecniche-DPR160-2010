@@ -269,6 +269,16 @@ properties:
                 - S256
                 - S384
                 - S512
+              code:
+                "$id": "#root/usecase_proceedings/attachments/code"
+                title: identificativo dell'allegato presente nel Catalogo
+                type: string
+                minLength: 1
+              version:
+                "$id": "#root/usecase_proceedings/attachments/version"
+                title: versione dell'allegato presente nel Catalogo
+                type: string
+                minLength: 1
               form:
                 "$id": "root/usecase_proceedings/attachments/form"
                 title: riferimento agli oggetti per la validazione
