@@ -242,7 +242,7 @@ sequenceDiagram
                             B ->> E: notify(cui, instance_descriptor_version,end_by_positive_conformation)
                             E -->> B: ack
                         end
-                        B ->> C: audit(cui,end_by_positive_conformation_from_<ET>)
+                        B ->> C: audit(cui,end_by_positive_conformation)
                         C -->> B: ack
                     else almeno un ente ha inoltrato un esito negativo per la conformazione
                         B ->> F: notify(cui, instance_descriptor_version,end_by_negative_conformation)
@@ -259,7 +259,7 @@ sequenceDiagram
                             B ->> E: notify(cui, instance_descriptor_version,end_by_negative_conformation)
                             E -->> B: ack
                         end
-                        B ->> C: audit(cui,end_by_negative_conformation_from_<ET>)
+                        B ->> C: audit(cui,end_by_negative_conformation)
                         C -->> B: ack
                     end
                 end
