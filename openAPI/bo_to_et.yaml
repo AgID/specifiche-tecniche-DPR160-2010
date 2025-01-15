@@ -402,12 +402,6 @@ components:
                 - $ref: "#/components/schemas/ConformationRequired"
                 - $ref: "#/components/schemas/PositiveOutcome"
                 - $ref: "#/components/schemas/ConformationOutcome"
-            discriminator:
-                propertyName: conclusions_type
-                mapping:
-                    suspension_requested: "#/components/schemas/NegativeOutcomeRequired"
-                    conformation_requested: "#/components/schemas/ConformationRequired"
-                    positive_outcome: "#/components/schemas/PositiveOutcome"
 
         NegativeOutcomeRequired:
             type: object
