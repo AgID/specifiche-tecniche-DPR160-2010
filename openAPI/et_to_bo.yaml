@@ -728,10 +728,21 @@ components:
                         title: "indica il formato dei dati previsto per l'atto amministrativo"
                         type: string
                         minLength: 1
-                    cdss_admin_act_filename:
-                        title: "filename dell'atto amministrativo da allegare per la convocazione della Conferenza dei Servizi Sincrona"
+                    resource_id:
+                        title: se presente, id della risorsa documento correlata all'evento notificato
                         type: string
                         minLength: 1
+                    hash:
+                        title: hash risorsa
+                        type: string
+                        minLength: 1
+                    alg_hash:
+                        title: algoritmo hash applicato
+                        type: string
+                        enum:
+                        - S256
+                        - S384
+                        - S512
                     cdss_channel:
                         type: string
                         title: "canale utilizzato per la convocazione della Conferenza dei Servizi Sincrona"
