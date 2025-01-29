@@ -1122,8 +1122,6 @@ paths:
                   type: object
                   required:
                     - primary
-                    - secondary
-                    - mandatary
                   properties:
                     primary:
                       $ref: "#/components/schemas/UseCaseProceeding"
