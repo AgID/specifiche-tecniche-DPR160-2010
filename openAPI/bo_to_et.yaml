@@ -417,12 +417,8 @@ components:
                 - $ref: "#/components/schemas/NegativeOutcomeRequired"
                 - $ref: "#/components/schemas/ConformationRequired"
                 - $ref: "#/components/schemas/PositiveOutcome"
-            discriminator:
-                propertyName: conclusions_type
-                mapping:
-                    negative_outcome: "#/components/schemas/NegativeOutcomeRequired"
-                    conformation_requested: "#/components/schemas/ConformationRequired"
-                    positive_outcome: "#/components/schemas/PositiveOutcome"
+                - $ref: "#/components/schemas/ConformationOutcome"
+
 
         NegativeOutcomeRequired:
             type: object
@@ -493,8 +489,9 @@ components:
                     $ref: "#/components/schemas/cui"
                 instance_descriptor_version:
                     type: string
-                date:
+                expiration_date:
                     type: string
+                    description: "data di scadenza concessa al presentatore per inoltrare la documentazione relativa alla richiesta di conformazione"
                     format: date
                 conformation_requested:
                     type: string
@@ -542,6 +539,41 @@ components:
                     $ref: "#/components/schemas/AdministrationSchema"
                 resource_id:
                     title: id della risorsa "documento di parere positivo", univoco per erogatore e CUI.UUID
+                    type: string
+                    minLength: 1
+                hash:
+                    title: hash risorsa
+                    type: string
+                    minLength: 1
+                alg_hash:
+                    title: algoritmo hash applicato
+                    type: string
+                    enum:
+                    - S256
+                    - S384
+                    - S512
+        ConformationOutcome:
+            required:
+                - cui
+                - instance_descriptor_version
+                - date
+                - conformation_outcome
+                - outcome_type
+            properties:
+                outcome_type:
+                    type: string
+                    enum: 
+                    - positive_conformation
+                    - negative_conformation
+                cui:
+                    $ref: "#/components/schemas/cui"
+                instance_descriptor_version:
+                    type: string
+                conformation_outcome:
+                    type: string
+                    minLength: 1
+                resource_id:
+                    title: id della risorsa "documento di parere della conformazione", univoco per erogatore e CUI.UUID
                     type: string
                     minLength: 1
                 hash:
