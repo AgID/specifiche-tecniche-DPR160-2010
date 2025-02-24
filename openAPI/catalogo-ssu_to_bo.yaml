@@ -48,7 +48,7 @@ paths:
           Agid-JWT-Signature: []
 
   /update_times:
-    description: Richiesta aggiornamento tempi procedimento
+    description: Richiesta aggiornamento dei tempi amministrativi dell' istanza
     post:
       requestBody:
         content:
@@ -73,7 +73,7 @@ paths:
           Agid-JWT-Signature: []
 
   /audit:
-    description: Audit azioni realizzate dalla componenti
+    description: Audit azioni realizzate dalle componenti
     post:
       requestBody:
         content:
@@ -556,6 +556,14 @@ components:
                       - S256
                       - S384
                       - S512
+                    code:
+                      title: identificativo dell'allegato presente nel Catalogo
+                      type: string
+                      minLength: 1
+                    version:
+                      title: versione dell'allegato presente nel Catalogo
+                      type: string
+                      minLength: 1                      
                     form:                      
                       title: riferimento agli oggetti per la validazione
                       type: object
@@ -610,7 +618,7 @@ components:
         example: eyJzd.fafa.fafafa
       description: |-
         Il valore di questo header è una token JWT firmato secondo la specifica JWS.
-        Vedi Modi  [integrity_rest_01] Integrità del payload del messaggio REST.
+        Vedi Modi [integrity_rest_01] Integrità del payload del messaggio REST.
 
   securitySchemes:
     bearerAuth:
@@ -623,6 +631,6 @@ components:
       type: apiKey
       description: |-
         Il valore di questo header è una token JWT firmato secondo la specifica JWS.
-        Vedi Modi  [integrity_rest_01] Integrità del payload del messaggio REST.
+        Vedi Modi [integrity_rest_01] Integrità del payload del messaggio REST.
       name: Agid-JWT-Signature
       in: header
